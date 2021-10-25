@@ -1,5 +1,5 @@
 # 2021-10-25-Python_Training
-Python Automation and Ansible Training
+Python Automation and Ansible Training. Want to learn more about Git versioning
 # mycode (Project Title)
 
 One Paragraph of your project description goes here. Describe what you're trying to do.
