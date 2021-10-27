@@ -14,6 +14,10 @@ def main():
 
     print(neojson)
     print(neojson.keys())
+    print("==========================================\n\n")
+
+    print(neojson['near_earth_objects'])
+
 
 ## call main
 main()
