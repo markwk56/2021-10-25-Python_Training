@@ -1,0 +1,33 @@
+---
+- name: Another network playbook example
+  # The line below calls our group that does not have any clear-text passwords
+  hosts: aristaswitchessecure
+  # gather_facts ALWAYS runs setup.py (server module)
+  gather_facts: no # v2.5=< no is default if network_cli is selected for connection
+                   # if turned to yes you'll collect info about the local host :(
+
+  vars_prompt:
+    - name: "Simba"  # Variable name to define
+      prompt: "What is your password?" # Question to ask
+      ## do not reveal the password (optional)
+      private: yes
+      ## run this encryption method (optional)
+      encrypt: "sha512_crypt"
+      ## type the password twice (optional)
+      confirm: yes
+      ## this is the size of the RAND you'd like to have generated (optional)
+      salt_size: 7
+      # salt: slappysquirrel88 # provide your own RAND (optional)
+      ## default to this password (optional)
+      default: "qwerty"
+
+  # Instead we will store our encrypted information within a YAML file, vault.yml
+  vars_files:
+    - vault.yml
+  
+  tasks:
+  # If we run this and have gather_facts set to no, then ansible_facts will be about our network devs
+  - name: Harvest Arista facts
+    eos_facts:
+    when: ansible_network_os == 'eos'
+
