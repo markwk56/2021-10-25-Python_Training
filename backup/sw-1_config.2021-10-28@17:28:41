@@ -1,0 +1,36 @@
+! Command: show running-config
+! device: sw1 (vEOS, EOS-4.22.0F)
+!
+! boot system flash:/vEOS-lab.swi
+!
+transceiver qsfp default-mode 4x10G
+!
+hostname sw1
+!
+spanning-tree mode mstp
+!
+no aaa root
+!
+username admin role network-admin secret sha512 $6$U4lKrXKxF0PTrfyt$Qw5fFNl6XITyCU18QdGhndWTWp49v6PjdeYZKifdbePyz4e5da4rfy7WVFqFEkNqpmKuIcogdDDZAVezBYjF.0
+!
+interface Management1
+   mtu 1450
+   ip address dhcp
+   dhcp client accept default-route
+!
+no ip routing
+!
+banner login
+this is my login banner
+that contains a multiline
+string
+if this works correctly
+we should never see the banner because the
+config will be rolled back by our rescue
+EOF
+!
+management api http-commands
+   protocol http
+   no shutdown
+!
+end
